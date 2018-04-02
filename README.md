@@ -6,7 +6,7 @@ Voyager is a Node and SQL based web application framework that provides everythi
 
 * Built-in user authentication (opt-in)
 * [Simplistic database migrations (Knex)](http://knexjs.org/)
-* [Easy-to-use ORM (Bookshelf)](http://bookshelfjs.org/)
+* [Easy-to-use ORM (Sequelize)](http://docs.sequelizejs.com/)
 * [Clean, full-featured layout templating (Handlebars)](http://handlebarsjs.com/)
 * [Robust front-end build system (Webpack)](https://webpack.js.org/)
 * Modern ES6 syntax
@@ -40,7 +40,7 @@ _Notice: You must run the built-in Knex migrations and add a .env file with vali
 
 5. Your app should open up automatically at `http://localhost:3001` and you should see the Voyager start up page.
 
-### Auth Setup
+## Auth Setup
 
 To get started with Voyager's built-in authentication, you must follow a few steps required to connect your app to a database and utilize key functionalities such as email confirmations and password resets.
 
@@ -54,7 +54,7 @@ To get started with Voyager's built-in authentication, you must follow a few ste
 
         MAILGUN_KEY=
 
-3. Create a MySQL database for your app, grab a Mailgun API key, and insert the corresponding values into the `.env` file. A finished version will look something like this for a local server:
+3. Create a MySQL database for your app, grab a [Mailgun API key](https://www.mailgun.com/), and insert the corresponding values into the `.env` file. A finished version will look something like this for a local server:
 
         DB_HOST=localhost
         DB_USER=root
@@ -74,7 +74,7 @@ To get started with Voyager's built-in authentication, you must follow a few ste
 6. Open a new tab in terminal and start webpack:
 
     $ webpack
-   You should now have a fully functioning app with auth features such as user registration, user login, email confirmation, and password reset functionality. For more information and instruction regarding Voyager auth, check the [Chris Courses YouTube channel](https://www.youtube.com/c/chriscourses) for Voyager tutorials and more.
+    You should now have a fully functioning app with auth features such as user registration, user login, email confirmation, and password reset functionality. For more information and instruction regarding Voyager auth, check the [Chris Courses YouTube channel](https://www.youtube.com/c/chriscourses) for Voyager tutorials and more.
 
 ## Quick Docs
 
