@@ -1,8 +1,34 @@
+@import './fonts/lato';
+@import './fonts/roboto-mono';
+@import '~bootstrap/scss/bootstrap';
+
+// Global
+@import './global/_variables';
+@import './global/util';
+@import './global/typography';
+@import './global/layout';
+@import './global/ui';
+
+// Partials
+@import './partials/header';
+@import './partials/footer';
+
+// Pages
+@import './pages/index';
+@import './pages/signup';
+
 body {
-    padding: 50px;
-    font: 14px 'Lucida Grande', Helvetica, Arial, sans-serif;
+    margin: 0;
+    font-size: 16px;
+    font-family: $lato;
+    color: #333;
 }
 
 a {
     color: #00b7ff;
+    text-decoration: none;
+}
+
+[v-cloak] {
+    display: none;
 }

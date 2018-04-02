@@ -1,0 +1,40 @@
+{{#if info}}
+    <div role="alert" class="alert alert-success text-center">
+        <div>{{ info.[0] }}</div>
+    </div>
+{{/if}}
+
+{{#unless isEmailConfirmed}}
+    {{#if login}}
+        <div role="alert" class="alert alert-warning m0">
+            <div class="container">
+                <div class="row justify-content-between align-items-center">
+                    <div class="col-sm-6 mmb10">
+                        <div>Confirm your email address to access all of Chris Courses' features. A confirmation message was sent to<strong> {{ email }}</strong></div>
+                    </div>
+                    <div class="col-sm-5 col-md-4 text-right">
+                        <form action="/auth/emailconfirmation" method="POST">
+                            <input type="hidden" name="email" id="email" value="{{ email }}">
+                            <button type="submit" class="btn-submit">Resend confirmation</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {{/if}}
+{{/unless}}
+
+<header>
+    <div class="container header-container">
+        <a href="/"><img class="header-logo" src="img/cc-voyager-logo.svg" alt="Chris Courses' Voyager Logo"></a>
+        <nav class="header-nav">
+            {{#if login}}
+                <a href="/profile">Profile</a>
+                <a href="/logout">Logout</a>
+            {{else}}
+                <a href="/login">Login</a>
+                <a href="/signup" class="btn-submit">Sign Up</a>
+            {{/if}}
+        </nav>
+    </div>
+</header>

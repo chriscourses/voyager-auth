@@ -1,0 +1,23 @@
+input {
+    font-family: $lato;
+}
+
+.btn-submit {
+    background: $purple;
+    border: none;
+    color: white;
+    font-family: $roboto;
+    min-width: 166px;
+    padding: 10px 20px;
+    border-radius: 28px;
+    cursor: pointer;
+    transition: 0.15s ease-out;
+    text-align: center;
+
+    &:hover {
+        background: lighten($purple, 5%);
+        transform: scale(1.03);
+        color: white;
+        text-decoration: none;
+    }
+}

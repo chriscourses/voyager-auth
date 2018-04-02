@@ -19,6 +19,7 @@ module.exports = {
         __dirname: true,
         process: true,
         describe: true,
-        it: true
+        it: true,
+        exports: true
     }
 }

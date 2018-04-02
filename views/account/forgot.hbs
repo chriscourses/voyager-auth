@@ -1,0 +1,29 @@
+<div id="auth-form" class="container">
+    <div class="row align-items-center justify-content-center signup-form-container">
+        <div class="col-sm-8 signup-form">
+            <h1>Forgot Password</h1>
+            <p class="sub">Forgot your password? Enter your email in the form below and we'll send you instructions on how to create a new one.</p> 
+
+            {{#if error}}
+                <div role="alert" class="alert alert-danger text-center">
+                    {{error.[0]}}
+                </div>
+            {{/if}}
+
+            <div class="signup-box">
+                <form action="/auth/forgot" method="POST" @submit.prevent="validateBeforeSubmit" ref="form">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input v-validate="'required|email'" data-vv-delay="350" type="email" name="email" id="email" placeholder="Email" class="form-control" autofocus>
+                        <p v-show="errors.has('email')" class="small text-danger" v-cloak>\{{ errors.first('email') }}</p>
+                    </div>
+                    <div class="text-right">
+                        <button type="submit" class="btn btn-submit">Sign Up</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="./js/auth.bundle.js"></script>
