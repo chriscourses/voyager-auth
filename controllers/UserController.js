@@ -4,7 +4,10 @@ const crypto = require('crypto-promise')
 const User = require('../models/User')
 const moment = require('moment')
 const { check, validationResult } = require('express-validator/check')
-const mailgun = require('mailgun-js')({ apiKey: process.env.MAILGUN_KEY, domain: process.env.MAILGUN_DOMAIN })
+const mailgun = require('mailgun-js')({
+    apiKey: process.env.MAILGUN_KEY,
+    domain: process.env.MAILGUN_DOMAIN
+})
 
 const saltRounds = 10
 
@@ -62,10 +65,8 @@ exports.signupValidation = [
 ]
 
 exports.signupPost = (req, res, next) => {
-    // console.log(req.body)
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
-        // console.log(errors.isEmpty())
         res.render('account/signup', { errors: errors.array() })
     } else {
         createUser(req, res, next)
@@ -174,6 +175,7 @@ exports.confirmEmailGet = async (req, res) => {
         res.redirect('/')
     } catch (err) {
         console.log(err)
+        res.redirect('/')
     }
 }
 
