@@ -166,8 +166,6 @@ describe('Signup form should reject signup if', function() {
 * *-----------------------------
 */
 
-// Can't test by response code since passport uses redirect on both fail and pass for login
-
 describe('A successful login post', function() {
     const userData = {
         username: 'correctUsername',
@@ -297,4 +295,3 @@ describe('A login should fail if', async function() {
 *  Email Confirmation Testing
 * *-----------------------------
 */
-
