@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const userController = require('./../controllers/user')
+const UserController = require('./../controllers/UserController')
 const passport = require('passport')
 const RateLimit = require('express-rate-limit')
 
@@ -54,19 +54,19 @@ router.get('/', (req, res) => {
     })
 })
 
-router.get('/signup', userController.testLoginStatus, userController.signupGet)
-router.get('/login', userController.testLoginStatus, userController.loginGet)
-router.get('/logout', userController.logout)
-router.get('/forgot', userController.testLoginStatus, userController.forgotGet)
-router.get('/profile', userController.authenticate, userController.profileGet)
-router.get('/auth/reset/:token', userController.resetGet)
-router.get('/auth/confirm/:token', userController.confirmEmailGet)
+router.get('/signup', UserController.testLoginStatus, UserController.signupGet)
+router.get('/login', UserController.testLoginStatus, UserController.loginGet)
+router.get('/logout', UserController.logout)
+router.get('/forgot', UserController.testLoginStatus, UserController.forgotGet)
+router.get('/profile', UserController.authenticate, UserController.profileGet)
+router.get('/auth/reset/:token', UserController.resetGet)
+router.get('/auth/confirm/:token', UserController.confirmEmailGet)
 
 router.post(
     '/auth/signup',
     createAccountLimiter,
-    userController.signupValidation,
-    userController.signupPost
+    UserController.signupValidation,
+    UserController.signupPost
 )
 router.post(
     '/auth/login',
@@ -81,16 +81,16 @@ router.post(
 router.post(
     '/auth/emailconfirmation',
     emailConfirmationLimiter,
-    userController.emailValidation,
-    userController.sendEmailConfirmation
+    UserController.emailValidation,
+    UserController.sendEmailConfirmation
 )
 
-router.post('/auth/forgot', userController.sendPasswordReset)
+router.post('/auth/forgot', UserController.sendPasswordReset)
 
 router.post(
     '/auth/reset/:token',
-    userController.resetPasswordValidation,
-    userController.resetPassword
+    UserController.resetPasswordValidation,
+    UserController.resetPassword
 )
 
 module.exports = router

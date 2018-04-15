@@ -2,13 +2,9 @@ const passport = require('passport')
 const bcrypt = require('bcrypt')
 const crypto = require('crypto-promise')
 const User = require('../models/User')
-const Sequelize = require('sequelize')
-const Op = Sequelize.Op
 const moment = require('moment')
 const { check, validationResult } = require('express-validator/check')
-const mailgunKey = process.env.MAILGUN_KEY
-const domain = 'mailgun.chriscourses.com'
-const mailgun = require('mailgun-js')({ apiKey: mailgunKey, domain: domain })
+const mailgun = require('mailgun-js')({ apiKey: process.env.MAILGUN_KEY, domain: process.env.MAILGUN_DOMAIN })
 
 const saltRounds = 10
 

@@ -53,6 +53,7 @@ To get started with Voyager's built-in authentication, you must follow a few ste
         DB_NAME=
 
         MAILGUN_KEY=
+        MAILGUN_DOMAIN=
 
 3. Create a MySQL database for your app, grab a [Mailgun API key](https://www.mailgun.com/), and insert the corresponding values into the `.env` file. A finished version will look something like this for a local server:
 
@@ -62,6 +63,7 @@ To get started with Voyager's built-in authentication, you must follow a few ste
         DB_NAME=newApp
 
         MAILGUN_KEY=key-kfvud83k3kf3vbn22k223222
+        MAILGUN_DOMAIN=mailgun.yourdomain.com
 
 4. Running `voyager start` will now run your app with a connection to your database, but we're not done just yet—we still need to run database migrations to ensure all of the necessary tables are available for our auth functionality to work:
 
@@ -86,4 +88,4 @@ Rollback Last Migrations: `$ knex migrate:rollback`
 
 ## License
 
-Voyager is an open-source framework running under the [MIT License](https://opensource.org/licenses/MIT).
+Voyager is an open-source framework licensed under the [MIT License](https://opensource.org/licenses/MIT).
