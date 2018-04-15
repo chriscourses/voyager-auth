@@ -53,7 +53,6 @@ router.get('/', (req, res) => {
         info: req.flash('info')
     })
 })
-
 router.get('/signup', UserController.testLoginStatus, UserController.signupGet)
 router.get('/login', UserController.testLoginStatus, UserController.loginGet)
 router.get('/logout', UserController.logout)
@@ -62,35 +61,55 @@ router.get('/profile', UserController.authenticate, UserController.profileGet)
 router.get('/auth/reset/:token', UserController.resetGet)
 router.get('/auth/confirm/:token', UserController.confirmEmailGet)
 
-router.post(
-    '/auth/signup',
-    createAccountLimiter,
-    UserController.signupValidation,
-    UserController.signupPost
-)
-router.post(
-    '/auth/login',
-    loginLimiter,
-    passport.authenticate('local', {
-        successRedirect: '/',
-        failureRedirect: '/login',
-        failureFlash: 'Invalid username or password.'
-    })
-)
-
-router.post(
-    '/auth/emailconfirmation',
-    emailConfirmationLimiter,
-    UserController.emailValidation,
-    UserController.sendEmailConfirmation
-)
-
 router.post('/auth/forgot', UserController.sendPasswordReset)
-
 router.post(
     '/auth/reset/:token',
     UserController.resetPasswordValidation,
     UserController.resetPassword
 )
+
+// Run tests without limiters in place
+if (process.env.NODE_ENV === 'test') {
+    router.post(
+        '/auth/signup',
+        UserController.signupValidation,
+        UserController.signupPost
+    )
+    router.post(
+        '/auth/login',
+        passport.authenticate('local', {
+            successRedirect: '/',
+            failureRedirect: '/login',
+            failureFlash: 'Invalid username or password.'
+        })
+    )
+    router.post(
+        '/auth/emailconfirmation',
+        UserController.emailValidation,
+        UserController.sendEmailConfirmation
+    )
+} else {
+    router.post(
+        '/auth/signup',
+        createAccountLimiter,
+        UserController.signupValidation,
+        UserController.signupPost
+    )
+    router.post(
+        '/auth/login',
+        loginLimiter,
+        passport.authenticate('local', {
+            successRedirect: '/',
+            failureRedirect: '/login',
+            failureFlash: 'Invalid username or password.'
+        })
+    )
+    router.post(
+        '/auth/emailconfirmation',
+        emailConfirmationLimiter,
+        UserController.emailValidation,
+        UserController.sendEmailConfirmation
+    )
+}
 
 module.exports = router
