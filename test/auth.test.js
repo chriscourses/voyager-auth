@@ -1,60 +1,34 @@
 const request = require('supertest')
-const config = require('../knexfile')
-const knex = require('knex')(config)
 const app = require('../app')
 const expect = require('chai').expect
 const User = require('../models/User')
 
-// Test that signup post request returns successfully
-// Test that password in database is being hashed
+describe('A successful signup form submission', function() {
+    const userData = {
+        username: 'supertest',
+        email: 'test@test.com',
+        password: 'password',
+        passwordConfirmation: 'password'
+    }
 
-// describe('A successful signup form submission', function() {
-//     const user = {
-//         username: 'supertest',
-//         email: 'test@test.com',
-//         password: 'password',
-//         passwordConfirmation: 'password'
-//     }
+    it('should create a new user in the database with a hashed password', async function() {
+        const response = await request(app)
+            .post('/auth/signup')
+            .set('Accept', 'application/json')
+            .send(userData)
 
-//     it('should create a new user in the database', async function() {
-//         const response = await request(app)
-//             .post('/auth/signup')
-//             .set('Accept', 'application/json')
-//             .send(user)
+        const user = await User.findOne({
+            where: { username: 'supertest' }
+        })
 
-//         expect(response.statusCode).to.equal(302)
+        expect(user.username).to.equal('supertest')
+        expect(user.email).to.equal('test@test.com')
+        expect(user.password.toString()).to.not.equal('password')
+        expect(response.statusCode).to.equal(302)
 
-//         await knex.raw('delete from users order by id desc limit 1')
-//     })
-
-//     it('should hash a users password', async function() {
-//         const response = await request(app)
-//             .post('/auth/signup')
-//             .set('Accept', 'application/json')
-//             .send(user)
-
-//         expect(response.statusCode).to.equal(302)
-
-//         const insertedUser = await knex.raw(
-//             'SELECT * FROM users ORDER BY ID DESC LIMIT 1'
-//         )
-
-//         expect(insertedUser[0][0].password).to.not.equal(user.password)
-
-//         await knex.raw('delete from users order by id desc limit 1')
-//     })
-
-//     it('should create a user session', async function() {
-//         const response = await request(app)
-//             .post('/auth/signup')
-//             .set('Accept', 'application/json')
-//             .send(user)
-
-//         expect(response.statusCode).to.equal(302)
-
-//         await knex.raw('delete from users order by id desc limit 1')
-//     })
-// })
+        user.destroy()
+    })
+})
 
 // describe('Signup form should reject signup if', function() {
 //     it('all fields are empty', async function() {
@@ -73,118 +47,118 @@ const User = require('../models/User')
 //         expect(response.statusCode).to.equal(200)
 //     })
 
-//     it('username is empty', async function() {
-//         const user = {
-//             username: '',
-//             email: 'empty@test.com',
-//             password: 'password',
-//             passwordConfirmation: 'password'
-//         }
+    // it('username is empty', async function() {
+    //     const user = {
+    //         username: '',
+    //         email: 'empty@test.com',
+    //         password: 'password',
+    //         passwordConfirmation: 'password'
+    //     }
 
-//         const response = await request(app)
-//             .post('/auth/signup')
-//             .set('Accept', 'application/json')
-//             .send(user)
+    //     const response = await request(app)
+    //         .post('/auth/signup')
+    //         .set('Accept', 'application/json')
+    //         .send(user)
 
-//         expect(response.statusCode).to.equal(200)
-//     })
+    //     expect(response.statusCode).to.equal(200)
+    // })
 
-//     it('username is under 4 characters', async function() {
-//         const user = {
-//             username: 'cal',
-//             email: 'cal@test.com',
-//             password: 'password',
-//             passwordConfirmation: 'password'
-//         }
+    // it('username is under 4 characters', async function() {
+    //     const user = {
+    //         username: 'cal',
+    //         email: 'cal@test.com',
+    //         password: 'password',
+    //         passwordConfirmation: 'password'
+    //     }
 
-//         const response = await request(app)
-//             .post('/auth/signup')
-//             .set('Accept', 'application/json')
-//             .send(user)
+    //     const response = await request(app)
+    //         .post('/auth/signup')
+    //         .set('Accept', 'application/json')
+    //         .send(user)
 
-//         expect(response.statusCode).to.equal(200)
-//     })
+    //     expect(response.statusCode).to.equal(200)
+    // })
 
-//     it('username is over 20 characters', async function() {
-//         const user = {
-//             username: 'longusernametoolongtoo',
-//             email: 'longusernametoolong@test.com',
-//             password: 'password',
-//             passwordConfirmation: 'password'
-//         }
+    // it('username is over 20 characters', async function() {
+    //     const user = {
+    //         username: 'longusernametoolongtoo',
+    //         email: 'longusernametoolong@test.com',
+    //         password: 'password',
+    //         passwordConfirmation: 'password'
+    //     }
 
-//         const response = await request(app)
-//             .post('/auth/signup')
-//             .set('Accept', 'application/json')
-//             .send(user)
+    //     const response = await request(app)
+    //         .post('/auth/signup')
+    //         .set('Accept', 'application/json')
+    //         .send(user)
 
-//         expect(response.statusCode).to.equal(200)
-//     })
+    //     expect(response.statusCode).to.equal(200)
+    // })
 
-//     it('email is empty', async function() {
-//         const user = {
-//             username: 'emptyEmail',
-//             email: '',
-//             password: 'password',
-//             passwordConfirmation: 'password'
-//         }
+    // it('email is empty', async function() {
+    //     const user = {
+    //         username: 'emptyEmail',
+    //         email: '',
+    //         password: 'password',
+    //         passwordConfirmation: 'password'
+    //     }
 
-//         const response = await request(app)
-//             .post('/auth/signup')
-//             .set('Accept', 'application/json')
-//             .send(user)
+    //     const response = await request(app)
+    //         .post('/auth/signup')
+    //         .set('Accept', 'application/json')
+    //         .send(user)
 
-//         expect(response.statusCode).to.equal(200)
-//     })
+    //     expect(response.statusCode).to.equal(200)
+    // })
 
-//     it('email is invalid', async function() {
-//         const user = {
-//             username: 'supertest',
-//             email: 'test.com',
-//             password: 'password',
-//             passwordConfirmation: 'password'
-//         }
+    // it('email is invalid', async function() {
+    //     const user = {
+    //         username: 'supertest',
+    //         email: 'test.com',
+    //         password: 'password',
+    //         passwordConfirmation: 'password'
+    //     }
 
-//         const response = await request(app)
-//             .post('/auth/signup')
-//             .set('Accept', 'application/json')
-//             .send(user)
+    //     const response = await request(app)
+    //         .post('/auth/signup')
+    //         .set('Accept', 'application/json')
+    //         .send(user)
 
-//         expect(response.statusCode).to.equal(200)
-//     })
+    //     expect(response.statusCode).to.equal(200)
+    // })
 
-//     it('passwords are different', async function() {
-//         const user = {
-//             username: 'diffPass',
-//             email: 'diffPass@test.com',
-//             password: 'password',
-//             passwordConfirmation: 'passwordDifferent'
-//         }
+    // it('passwords are different', async function() {
+    //     const user = {
+    //         username: 'diffPass',
+    //         email: 'diffPass@test.com',
+    //         password: 'password',
+    //         passwordConfirmation: 'passwordDifferent'
+    //     }
 
-//         const response = await request(app)
-//             .post('/auth/signup')
-//             .set('Accept', 'application/json')
-//             .send(user)
+    //     const response = await request(app)
+    //         .post('/auth/signup')
+    //         .set('Accept', 'application/json')
+    //         .send(user)
 
-//         expect(response.statusCode).to.equal(200)
-//     })
+    //     expect(response.statusCode).to.equal(200)
+    // })
 
-//     it('password is under 8 characters', async function() {
-//         const user = {
-//             username: 'shortPass',
-//             email: 'shortPass@test.com',
-//             password: 'pass',
-//             passwordConfirmation: 'pass'
-//         }
+    // it('password is under 8 characters', async function() {
+    //     const user = {
+    //         username: 'shortPass',
+    //         email: 'shortPass@test.com',
+    //         password: 'pass',
+    //         passwordConfirmation: 'pass'
+    //     }
 
-//         const response = await request(app)
-//             .post('/auth/signup')
-//             .set('Accept', 'application/json')
-//             .send(user)
+    //     const response = await request(app)
+    //         .post('/auth/signup')
+    //         .set('Accept', 'application/json')
+    //         .send(user)
 
-//         expect(response.statusCode).to.equal(200)
-//     })
-// })
+    //     expect(response.statusCode).to.equal(200)
+    // })
+})
 
 /*
 * *-----------------------------
