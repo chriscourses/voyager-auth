@@ -1,9 +1,4 @@
 <div id="auth-form" class="container">
-    {{#if error}}
-        <div role="alert" class="alert alert-danger text-center">
-            {{error.[0]}}
-        </div>
-    {{/if}}
 
     <div class="errors">
         {{#each errors}}
@@ -16,6 +11,11 @@
         <div class="col-sm-8 signup-form">
             <h1>Sign Up</h1>
             <p class="sub signup-sub">Gain personalized access to a 100% free professional web development education. </p> 
+            {{#if error}}
+                <div role="alert" class="alert alert-danger text-center">
+                    {{error.[0]}}
+                </div>
+            {{/if}}
      
             <div class="signup-box">
                 <form action="/auth/signup" method="POST" @submit.prevent="validateBeforeSubmit" ref="form">

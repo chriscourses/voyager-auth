@@ -86,7 +86,10 @@ passport.use(
             let user = await User.findOne({ where: { username: username } })
 
             if (!user)
-                return done(null, false, { message: 'Incorrect username.' })
+                return done(null, false, {
+                    message: 'Invalid username or password.',
+                    username: username
+                })
 
             user = user.toJSON()
 
@@ -95,7 +98,10 @@ passport.use(
                 user.password.toString('utf8')
             )
             if (passValid === false)
-                return done(null, false, { message: 'Incorrect password.' })
+                return done(null, false, {
+                    message: 'Invalid username or password.',
+                    username: username
+                })
 
             return done(null, user)
         } catch (err) {

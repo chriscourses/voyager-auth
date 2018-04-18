@@ -111,8 +111,12 @@ async function createUser(req, res, next) {
             if (err) return next(err)
             return res.redirect('/')
         })
-    } catch (error) {
-        console.log(error)
+    } catch (err) {
+        if (err.parent.code === 'ER_DUP_ENTRY') {
+            res.render('account/signup', {
+                error: ['Username or email already taken.']
+            })
+        }
     }
 }
 

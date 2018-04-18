@@ -39,7 +39,7 @@ if (process.env.NODE_ENV === 'test') {
         passport.authenticate('local', {
             successRedirect: '/',
             failureRedirect: '/login',
-            failureFlash: 'Invalid username or password.'
+            failureFlash: true
         })
     )
     router.post(
@@ -60,7 +60,7 @@ if (process.env.NODE_ENV === 'test') {
         passport.authenticate('local', {
             successRedirect: '/',
             failureRedirect: '/login',
-            failureFlash: 'Invalid username or password.'
+            failureFlash: true
         })
     )
     router.post(

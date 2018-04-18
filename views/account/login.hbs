@@ -6,7 +6,7 @@
 
             {{#if error}}
                 <div role="alert" class="alert alert-danger text-center">
-                    {{error.[0]}}
+                    {{error}}
                 </div>
             {{/if}}
 
@@ -14,7 +14,7 @@
                 <form action="/auth/login" method="POST">
                     <div class="form-group">
                         <label for="username">Username</label>
-                        <input type="username" name="username" id="username" placeholder="Username" class="form-control" autofocus>
+                        <input type="username" name="username" id="username" placeholder="Username" class="form-control" value="{{username}}" autofocus>
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
