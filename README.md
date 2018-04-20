@@ -67,7 +67,8 @@ To get started with Voyager's built-in authentication, you must follow a few ste
 
 4. Install knex if you haven't already:
 
-    npm install knex --save
+        npm install knex -g
+
 5. Run knex migrations:
 
         knex migrate:latest
