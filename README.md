@@ -32,13 +32,9 @@ Built on top of Express, and modeled after Rails and Laravel, Voyager provides a
 3. Change directory to `newApp` and start the Voyager server:
 
         cd newApp
-        voyager start
+        npm run dev
 
-4. Open up a new terminal tab and run webpack (requires webpack installed globally):
-
-        webpack
-
-5. Your app should open up automatically at `http://localhost:3001` and you should see the Voyager start up page.
+4. Your app should open up automatically at `http://localhost:3001` and you should see the Voyager start up page.
 
 ## Auth Setup
 
@@ -75,11 +71,7 @@ To get started with Voyager's built-in authentication, you must follow a few ste
 
 6. Restart the Voyager server:
 
-        voyager start
-
-7. Open a new tab in terminal and start webpack:
-
-        webpack
+        npm run dev
 
 You should now have a fully functioning app with auth features such as user registration, user login, email confirmation, and password reset functionality. For more information and instruction regarding Voyager auth, check the [Chris Courses YouTube channel](https://www.youtube.com/c/chriscourses) for Voyager tutorials and more.
 

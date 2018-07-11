@@ -2,8 +2,10 @@ const path = require('path')
 const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
+const NodemonPlugin = require('nodemon-webpack-plugin')
 
 module.exports = {
+    mode: 'development',
     entry: {
         global: './src/js/global.js',
         auth: './src/js/auth.js'
@@ -83,6 +85,17 @@ module.exports = {
     },
     watch: true,
     devtool: 'cheap-eval-source-map'
+}
+
+if (process.env.NODE_ENV !== 'production') {
+    module.exports.plugins = (module.exports.plugins || []).concat([
+        new NodemonPlugin({
+            script: './bin/www',
+            verbose: true,
+            ext: 'js',
+            watch: '.'
+        })
+    ])
 }
 
 if (process.env.NODE_ENV === 'production') {
