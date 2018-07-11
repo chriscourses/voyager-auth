@@ -5,8 +5,8 @@ const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
 
 module.exports = {
     entry: {
-        global: './src/global.js',
-        auth: './src/auth.js'
+        global: './src/js/global.js',
+        auth: './src/js/auth.js'
     },
     output: {
         path: path.resolve(__dirname, 'public'),
@@ -63,29 +63,17 @@ module.exports = {
     plugins: [
         // new webpack.HotModuleReplacementPlugin(), // Enable HMR
         new ExtractTextPlugin('css/style.css'),
-        new BrowserSyncPlugin(
-            {
-                host: 'localhost',
-                port: 3001,
-                proxy: 'http://localhost:3000/',
-                files: [
-                    {
-                        match: ['**/*.hbs'],
-                        fn: function(event) {
-                            if (event === 'change') {
-                                const bs = require('browser-sync').get(
-                                    'bs-webpack-plugin'
-                                )
-                                bs.reload()
-                            }
-                        }
-                    }
-                ]
-            },
-            {
-                reload: false
-            }
-        )
+        new BrowserSyncPlugin({
+            host: 'localhost',
+            port: 3001,
+            proxy: 'http://localhost:3000/',
+            notify: false,
+            files: [
+                {
+                    match: ['**/*.hbs']
+                }
+            ]
+        })
     ],
     resolve: {
         alias: {

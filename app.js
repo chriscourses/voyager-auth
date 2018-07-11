@@ -77,7 +77,7 @@ app.use(function(req, res, next) {
     next()
 })
 
-const routes = require('./routes/web')
+const routes = require('./routes/routes')
 app.use('/', routes)
 
 passport.use(
