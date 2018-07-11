@@ -6,16 +6,15 @@
 @import './global/_variables';
 @import './global/util';
 @import './global/typography';
-@import './global/layout';
 @import './global/ui';
 
 // Partials
 @import './partials/header';
 @import './partials/footer';
 
-// Pages
-@import './pages/index';
-@import './pages/signup';
+// Pages - Don't need to break into pages until file becomes large
+// @import './pages/index';
+// @import './pages/signup';
 
 body {
     margin: 0;
@@ -31,4 +30,66 @@ a {
 
 [v-cloak] {
     display: none;
+}
+
+.container {
+    max-width: 1170px;
+    margin: 0 auto;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/*
+* ------------------------------------------
+* *-----------------------------
+*  Home Page
+* *-----------------------------
+* ------------------------------------------
+*/
+
+.index-container {
+    height: calc(100vh - 75px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    h1 {
+        margin-bottom: 0;
+    }
+}
+
+.body-logo {
+    width: 90%;
+    max-width: 480px;
+    margin-bottom: 30px;
+}
+
+.index-nav {
+    a {
+        display: inline-block;
+        margin: 0 3px;
+    }
+}
+
+/*
+* ------------------------------------------
+* *-----------------------------
+*  Sign Up Page
+* *-----------------------------
+* ------------------------------------------
+*/
+
+.signup-form-container {
+    height: calc(100vh - 75px);
+}
+
+.signup-form {
+    max-width: 430px;
+}
+
+.signup-sub {
+    max-width: 333px;
 }
