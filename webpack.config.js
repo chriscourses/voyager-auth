@@ -15,12 +15,12 @@ module.exports = {
         filename: './js/[name].bundle.js'
     },
     module: {
-        loaders: [
+        rules: [
             {
                 test: /\.scss$/,
                 use: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
-                    use: 'css-loader!postcss-loader!sass-loader'
+                    use: ['css-loader', 'postcss-loader', 'sass-loader']
                 })
             },
             {
@@ -34,7 +34,8 @@ module.exports = {
                 }
             },
             {
-                test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
+                test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+                exclude: path.resolve(__dirname, 'src/img'),
                 use: [
                     {
                         loader: 'file-loader',
@@ -63,7 +64,6 @@ module.exports = {
         ]
     },
     plugins: [
-        // new webpack.HotModuleReplacementPlugin(), // Enable HMR
         new ExtractTextPlugin('css/style.css'),
         new BrowserSyncPlugin({
             host: 'localhost',
@@ -104,12 +104,6 @@ if (process.env.NODE_ENV === 'production') {
         new webpack.DefinePlugin({
             'process.env': {
                 NODE_ENV: '"production"'
-            }
-        }),
-        new webpack.optimize.UglifyJsPlugin({
-            sourceMap: true,
-            compress: {
-                warnings: false
             }
         }),
         new webpack.LoaderOptionsPlugin({
